@@ -1,24 +1,28 @@
-# README
+# ENDPOINTS
+* rvm install 2.7.0
+* gem install bundler
+* bundle install
+* rails db:migrate
+* rails s
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# ENDPOINTS
 
-Things you may want to cover:
+## Sessions
 
-* Ruby version
+### Create Session
+* **POST** http://localhost:3000/sessions/?session[name]=<NAME HERE\>
+* **Returns:** {"token": <SESSION TOKEN\>, "name": <NAME HERE\>}
 
-* System dependencies
+## Games
 
-* Configuration
+### Game Status
+* **GET** http://localhost:3000/games/<GAME PIN\>/status
+* **Returns:** { "pin": <GAME PIN\>, "status": "waiting", "sessions": [{"token": <SESSION TOKEN\>, "name": <NAME HERE\>}]}
 
-* Database creation
+### Create Game
+* **POST** http://localhost:3000/games?token=<SESSION TOKEN\>
+* **Returns:** { "pin": <GAME PIN\> }
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Join Game
+* **POST** http://localhost:3000/games/<GAME PIN\>/join?token=<SESSION TOKEN\>
+* **Returns:** Same as status
