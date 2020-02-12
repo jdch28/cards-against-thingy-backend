@@ -1,0 +1,234 @@
+require: rubocop-rails
+### Excludes ###
+AllCops:
+  Exclude:
+    - 'db/migrate/*.rb'
+    - 'config/*'
+    - 'config/*/*'
+    - 'vendor/**/*'
+    - 'db/seeds/**/*.rb'
+    - 'db/schema.rb'
+    - 'bin/**/*'
+
+### Style ###
+
+Style/AndOr:
+  EnforcedStyle: conditionals
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+Style/DateTime:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+    - 'app/helpers/application_helper.rb'
+
+Style/EmptyElse:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/FormatString:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Style/GlobalVars:
+  AllowedVariables:
+    - $REDIS
+    - $s3
+    - $s3_bucket
+    - $s3_configured
+    - $s3_prefix
+
+Style/GuardClause:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/InverseMethods:
+  Enabled: false
+
+Style/MethodMissingSuper:
+  Enabled: true
+
+Style/MissingRespondToMissing:
+  Enabled: true
+
+Style/MultipleComparison:
+  Enabled: false
+
+Style/MultilineIfModifier:
+  Enabled: false
+
+Style/NumericLiterals:
+  MinDigits: 7
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/OrAssignment:
+  Enabled: false
+
+Style/PercentLiteralDelimiters:
+  Enabled: false
+
+Style/RandomWithOffset:
+  Enabled: false
+
+Style/RescueStandardError:
+  Enabled: false
+
+Style/RedundantSelf:
+  Enabled: false
+
+Style/SafeNavigation:
+  Enabled: false
+
+Style/SignalException:
+  Enabled: false
+
+Style/SingleLineBlockParams:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/TernaryParentheses:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInArrayLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: comma
+
+Style/ZeroLengthPredicate:
+  Exclude:
+    - 'app/controllers/api/v1/projects_controller.rb'
+    - 'app/resources/api/v1/product_resource.rb'
+
+Style/DoubleNegation:
+  Enabled: false
+
+### Metrics ###
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 160
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+### Bundler ###
+
+Bundler/OrderedGems:
+  Enabled: false
+
+### Naming ###
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Naming/PredicateName:
+  NamePrefix:
+    - 'is_'
+
+Naming/VariableNumber:
+  Enabled: false
+
+### Lint ###
+
+Lint/DuplicateMethods:
+  Enabled: false
+
+Lint/UnifiedInteger:
+  Enabled: false
+
+Lint/UriEscapeUnescape:
+  Enabled: false
+
+### Layout ###
+
+Layout/CaseIndentation:
+  IndentOneStep: true
+
+Layout/EmptyLinesAroundArguments:
+  Enabled: false
+
+Layout/EmptyLinesAroundExceptionHandlingKeywords:
+  Enabled: false
+
+Layout/IndentationConsistency:
+  Enabled: false
+
+Layout/HeredocIndentation:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
+
+Layout/SpaceInLambdaLiteral:
+  Enabled: false
+
+### Rails Rules ###
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Rails/RefuteMethods:
+  Enabled: false
+
+Rails/TimeZone:
+  Enabled: false
+
+Rails/OutputSafety:
+  Enabled: false
+
+Rails/HelperInstanceVariable:
+  Enabled: false
