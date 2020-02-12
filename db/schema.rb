@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_12_204706) do
+ActiveRecord::Schema.define(version: 2020_02_12_220758) do
+
+  create_table "cards", force: :cascade do |t|
+    t.string "text"
+    t.integer "card_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "games", force: :cascade do |t|
     t.string "pin"
