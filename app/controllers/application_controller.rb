@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::API
-  before_action :set_current_sesssion
+  before_action :set_current_session
 
   private
 
-  def set_current_sesssion
-    @current_sesssion = Session.where(token: params[:token]).take
+  def set_current_session
+    @current_session = Session.where(token: params[:token]).take
   end
 end
