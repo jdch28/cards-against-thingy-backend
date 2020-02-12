@@ -141,9 +141,6 @@ Metrics/ClassLength:
 Metrics/CyclomaticComplexity:
   Enabled: false
 
-Metrics/LineLength:
-  Max: 160
-
 Metrics/MethodLength:
   Enabled: false
 
@@ -206,6 +203,9 @@ Layout/IndentationConsistency:
 
 Layout/HeredocIndentation:
   Enabled: false
+
+Layout/LineLength:
+  Max: 160
 
 Layout/MultilineMethodCallIndentation:
   Enabled: false
