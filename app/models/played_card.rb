@@ -1,4 +1,4 @@
-class PLayedCard < ApplicationRecord
+class PlayedCard < ApplicationRecord
   belongs_to :card
   belongs_to :game
 

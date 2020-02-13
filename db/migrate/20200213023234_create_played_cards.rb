@@ -1,4 +1,4 @@
-class CreateRoundCards < ActiveRecord::Migration[6.0]
+class CreatePlayedCards < ActiveRecord::Migration[6.0]
   def change
     create_table :played_cards do |t|
       t.references :card

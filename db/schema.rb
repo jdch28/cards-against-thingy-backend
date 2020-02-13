@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_12_220758) do
+ActiveRecord::Schema.define(version: 2020_02_13_023234) do
 
   create_table "cards", force: :cascade do |t|
     t.string "text"
@@ -21,10 +21,21 @@ ActiveRecord::Schema.define(version: 2020_02_12_220758) do
 
   create_table "games", force: :cascade do |t|
     t.string "pin"
-    t.integer "status", default: 0
-    t.datetime "end_date"
+    t.integer "game_status", default: 0
+    t.integer "round_status", default: 0
+    t.integer "current_round", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "played_cards", force: :cascade do |t|
+    t.integer "card_id"
+    t.integer "games_id"
+    t.text "token"
+    t.integer "round_number"
+    t.boolean "winner", default: false
+    t.index ["card_id"], name: "index_played_cards_on_card_id"
+    t.index ["games_id"], name: "index_played_cards_on_games_id"
   end
 
   create_table "sessions", force: :cascade do |t|
