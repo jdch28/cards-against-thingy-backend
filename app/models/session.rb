@@ -3,4 +3,8 @@ class Session < ApplicationRecord
   serialize :player_hand, Array
 
   belongs_to :game, optional: true
+
+  def required_card_number
+    Game::MAX_PLAYER_HAND - self.player_hand.size
+  end
 end

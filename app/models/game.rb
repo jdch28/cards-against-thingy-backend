@@ -1,6 +1,8 @@
 class Game < ApplicationRecord
   MAX_PLAYERS_PER_GAME = 4
   MAX_ROUND_WINS = 3
+  MAX_PLAYER_HAND = 4
+  DECK_DRAW = MAX_PLAYERS_PER_GAME * MAX_PLAYER_HAND
 
   enum game_status: {
     waiting_for_players: 0,
@@ -36,8 +38,13 @@ class Game < ApplicationRecord
     }
   end
 
-  def new_cards
-    # TO-DO:
+  def fill_cards
+    new_cards = Card.fetch_cards_from_deck(self.played_cards.pluck(:card_id))
+    sessions.each do |session|
+      player_cards = new_cards.pop(session.required_card_number)
+      session.player_hand += player_cards
+      session.save
+    end
   end
 
   def answers_for_current_round
