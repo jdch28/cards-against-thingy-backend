@@ -232,3 +232,6 @@ Rails/OutputSafety:
 
 Rails/HelperInstanceVariable:
   Enabled: false
+
+Rails/FindBy:
+  Enabled: false

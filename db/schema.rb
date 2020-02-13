@@ -30,12 +30,12 @@ ActiveRecord::Schema.define(version: 2020_02_13_023234) do
 
   create_table "played_cards", force: :cascade do |t|
     t.integer "card_id"
-    t.integer "games_id"
+    t.integer "game_id"
     t.text "token"
     t.integer "round_number"
     t.boolean "winner", default: false
     t.index ["card_id"], name: "index_played_cards_on_card_id"
-    t.index ["games_id"], name: "index_played_cards_on_games_id"
+    t.index ["game_id"], name: "index_played_cards_on_game_id"
   end
 
   create_table "sessions", force: :cascade do |t|
