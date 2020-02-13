@@ -15,7 +15,7 @@ class GamesController < ApplicationController
   end
 
   def join
-    if @current_game.sessions.count >= Game::MAX_PLAYERS_PER_GAME
+    if @current_game.sessions.size >= Game::MAX_PLAYERS_PER_GAME
       options = {
         error: 'Game lobby is already full.',
         status: 422,
@@ -28,6 +28,5 @@ class GamesController < ApplicationController
   end
 
   def status
-    @current_game
   end
 end

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     collection do
       get :status
       get :card_list
-      post :submit_answer
+      post :submit_card
       post :submit_winner
     end
   end
