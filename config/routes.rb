@@ -6,6 +6,14 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :rounds, only: [] do
+    collection do
+      get :status
+      get :card_list
+      post :submit_answer
+      post :submit_winner
+    end
+  end
   resources :sessions, only: [:create]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
