@@ -25,5 +25,5 @@
 * **Returns:** { "pin": <GAME PIN\> }
 
 ### Join Game
-* **POST** http://localhost:3000/games.json/<GAME PIN\>/join?token=<SESSION TOKEN\>
+* **POST** http://localhost:3000/games/<GAME PIN\>/join.json?token=<SESSION TOKEN\>
 * **Returns:** Same as status
