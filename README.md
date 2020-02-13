@@ -33,7 +33,7 @@
       * "name": **<NAME HERE\>**
 * when round status == `waiting_for_players` you will also get:
   * "sessions":
-    * "token": **<CARD TEXT\>**
+    * "token": **<SESSION TOKEN\>**
     * "name": **<SESSION NAME\>**
 * when round status == `ready` you will also get:
   * "round": **<TBD\>**
