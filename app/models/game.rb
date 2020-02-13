@@ -36,6 +36,10 @@ class Game < ApplicationRecord
     }
   end
 
+  def new_cards
+    # TO-DO:
+  end
+
   def answers_for_current_round
     self.played_cards.includes(:card).where(round_number: current_round, cards: { card_type: 'white' })
   end

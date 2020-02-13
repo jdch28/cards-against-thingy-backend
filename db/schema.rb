@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2020_02_13_023234) do
     t.integer "card_id"
     t.integer "game_id"
     t.text "token"
-    t.integer "round_number"
+    t.integer "round_number", default: 0
     t.boolean "winner", default: false
     t.index ["card_id"], name: "index_played_cards_on_card_id"
     t.index ["game_id"], name: "index_played_cards_on_game_id"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2020_02_13_023234) do
   create_table "sessions", force: :cascade do |t|
     t.string "name"
     t.string "token"
+    t.text "player_hand", default: "--- []\n"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "game_id"
