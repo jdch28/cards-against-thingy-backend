@@ -30,20 +30,4 @@ class GamesController < ApplicationController
   def status
     @current_game
   end
-
-  private
-
-  def load_game
-    return if params[:pin].blank?
-
-    @current_game = Game.where(pin: params[:pin]).take
-
-    if @current_game.blank?
-      options = {
-        error: "Game (PIN: #{params[:pin]}) not found.",
-        status: 422,
-      }
-      render_error(options) and return
-    end
-  end
 end
