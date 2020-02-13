@@ -7,8 +7,7 @@ class GamesController < ApplicationController
         error: 'Current session not found.',
         status: 404,
       }
-      render_error(options)
-      return
+      render_error(options) and return
     end
 
     @current_game = Game.create
@@ -21,8 +20,7 @@ class GamesController < ApplicationController
         error: 'Game lobby is already full.',
         status: 422,
       }
-      render_error(options)
-      return
+      render_error(options) and return
     end
 
     @current_game.sessions << @current_session
@@ -30,6 +28,7 @@ class GamesController < ApplicationController
   end
 
   def status
+    @current_game
   end
 
   private
@@ -44,8 +43,7 @@ class GamesController < ApplicationController
         error: "Game (PIN: #{params[:pin]}) not found.",
         status: 422,
       }
-      render_error(options)
-      return
+      render_error(options) and return
     end
   end
 end

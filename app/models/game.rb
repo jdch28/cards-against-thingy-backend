@@ -2,10 +2,9 @@ class Game < ApplicationRecord
   MAX_PLAYERS_PER_GAME = 4
 
   enum status: {
-    waiting: 0,
+    waiting_players: 0,
     ready: 1,
-    in_progress: 2,
-    finished: 3,
+    complete: 2,
   }
 
   before_create do |game|
