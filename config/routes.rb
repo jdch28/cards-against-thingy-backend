@@ -4,6 +4,9 @@ Rails.application.routes.draw do
       post :join
       get :status
     end
+    collection do
+      get :fake
+    end
   end
 
   resources :rounds, only: [] do

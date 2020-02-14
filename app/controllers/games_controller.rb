@@ -1,6 +1,10 @@
 class GamesController < ApplicationController
   before_action :load_game, only: %i[join status]
 
+  def fake
+    @game = Faker.set_fake_game
+  end
+
   def create
     if @current_session.blank?
       options = {
