@@ -23,7 +23,7 @@
 ## Games
 
 ### Game Status
-* **GET** http://localhost:3000/games/**<GAME PIN\>**/status.status
+* **GET** http://localhost:3000/games/**<GAME PIN\>**/status.json
 * **Returns:**
     * "type": "Game"
     * "pin": **<GAME PIN\>**
