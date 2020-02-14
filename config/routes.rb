@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :rounds, only: [] do
     collection do
+      get :current
       get :status
       get :card_list
       post :submit_card

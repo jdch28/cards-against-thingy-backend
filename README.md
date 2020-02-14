@@ -22,6 +22,14 @@
 
 ## Games
 
+### Game Faker
+* **GET** http://localhost:3000/games/fake.json
+* **Returns:**
+    * "pin": **<GAME PIN\>**
+    * "sessions":
+      * "token": **<SESSION TOKEN\>**
+      * "name": **<NAME HERE\>**
+
 ### Game Status
 * **GET** http://localhost:3000/games/**<GAME PIN\>**/status.json
 * **Returns:**
@@ -36,11 +44,11 @@
     * "token": **<SESSION TOKEN\>**
     * "name": **<SESSION NAME\>**
 * when round status == `ready` you will also get:
-  * "round_data":
+  <!-- * "round_data":
     * "round_number": **<ROUND NUMBER\>**
     * "black_card": **<ROUND BLACK CARD TEXT\>**
     * "czar_token": **<ROUND CZAR TOKEN\>**
-    * "player_card": [ **<PLAYER HAND(TEXT)\>** ]
+    * "player_card": [ **<PLAYER HAND(TEXT)\>** ] -->
 * when round status == `complete` you will also get:
   * "scores": **<TBD\>**
 
@@ -55,19 +63,28 @@
 
 ## Rounds
 
+### Current Round
+* **GET** http://localhost:3000/rounds/current.json?pin=**<GAME PIN\>**&token=**<SESSION TOKEN\>**
+* **Returns:**
+    * "round_number": **<ROUND NUMBER\>**
+    * "black_card": **<ROUND BLACK CARD TEXT\>**
+    * "czar_token": **<ROUND CZAR TOKEN\>**
+    * "player_hand":
+        * "id": **<CARD ID\>**
+        * "text": **<CARD TEXT\>**
+    * "last_round":
+        * "score": **<SESSION SCORE\>**,
+        * "winner":
+            * "card": **<CARD TEXT\>**
+            * "name": **<SESSION NAME\>**
+            * "token": "**<SESSION TOKEN\>**
+
 ### Round Status
 * **GET** http://localhost:3000/rounds/status.json?pin=**<GAME PIN\>**&token=**<SESSION TOKEN\>**
 * **Returns:**
   * "type": "Round"
   * "pin": **<GAME PIN\>**
   * "status": **<ROUND STATUS\>**
-#### Conditional Returns:
-* when round status == `complete` you will also get:
-  * "score": **<SESSION SCORE\>**,
-  * "winner":
-    * "card": **<CARD TEXT\>**
-    * "name": **<SESSION NAME\>**
-    * "token": "**<SESSION TOKEN\>**
 
 ### Cards For Rounds
 * **GET** http://localhost:3000/rounds/card_list.json?pin=**<GAME PIN\>**&token=**<SESSION TOKEN\>**

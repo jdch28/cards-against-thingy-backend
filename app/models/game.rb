@@ -70,13 +70,21 @@ class Game < ApplicationRecord
   end
 
   def end_round
-    session_scores = played_cards.where(winner: true).group_by(:token).count
+    session_scores = played_cards.where(winner: true).group(:token).count
     leader = session_scores.max_by { |token, wins| wins }
 
     update(game_status: :game_complete) and return if leader[1] == MAX_ROUND_WINS
 
     set_round_data
     update(round_status: :waiting_for_plebs)
+  end
+
+  def current_round_answer_count
+    played_cards.where.not(token: nil).where(round_number: current_round).size
+  end
+
+  def current_round_winner(winner_token)
+    played_cards.where(token: winner_token, round_number: current_round).take
   end
 
   private

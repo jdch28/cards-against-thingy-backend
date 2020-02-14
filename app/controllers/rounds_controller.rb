@@ -13,7 +13,7 @@ class RoundsController < ApplicationController
   def submit_card
     return if params[:token].blank? || params[:card_id].blank?
 
-    if @current_game.played_cards.size >= Game::MAX_PLAYERS_PER_GAME - 1
+    if @current_game.current_round_answer_count >= Game::MAX_PLAYERS_PER_GAME - 1
       options = {
         error: 'All white cards have been submited.',
         status: 422,
@@ -42,8 +42,9 @@ class RoundsController < ApplicationController
   def submit_winner
     return if params[:winner_token].blank?
 
-    winner_card = @current_game.played_cards.where(token: params[:winner_token]).take
+    winner_card = @current_game.current_round_winner(params[:winner_token])
     winner_card.winner = true
+
     @current_game.end_round if winner_card.save
 
     render :status
