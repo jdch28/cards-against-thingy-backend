@@ -112,7 +112,7 @@ class Game < ApplicationRecord
   end
 
   def update_round_status(_options = {})
-    if self.played_cards.where(round_number: current_round).size == MAX_PLAYERS_PER_GAME - 1
+    if self.played_cards.where.not(token: nil).where(round_number: current_round).size == MAX_PLAYERS_PER_GAME - 1
       self.round_status = :waiting_for_czar
       self.save
     end
