@@ -7,4 +7,8 @@ class Session < ApplicationRecord
   def required_card_number
     Game::MAX_PLAYER_HAND - self.player_hand.size
   end
+
+  def player_cards
+    Card.where(id: player_hand).pluck(:text)
+  end
 end

@@ -28,8 +28,6 @@ class Game < ApplicationRecord
     winner_session = self.sessions.where(token: winner.token).take
     win_count = self.played_cards.where(winner: true, token: winner.token).take
 
-    self.game_status = :game_complete if win_count == MAX_ROUND_WINS
-    self.round_status = :round_complete
 
     {
       card: winner.card.text,
@@ -48,7 +46,36 @@ class Game < ApplicationRecord
   end
 
   def answers_for_current_round
-    self.played_cards.includes(:card).where(round_number: current_round, cards: { card_type: 'white' })
+    self.played_cards.includes(:card).where(round_number: current_round, cards: { card_type: :white })
+  end
+
+  def get_black_card
+    played_card = played_cards.includes(:card).where(cards: { card_type: :black }, round_number: current_round).take
+    played_card.card.text
+  end
+
+  def next_czar_token
+    sorted_token = sessions.pluck(:token).sort
+    czar_index = current_round % MAX_PLAYERS_PER_GAME
+
+    sorted_token[czar_index]
+  end
+
+  def set_round_data(skip_round_increase=false)
+    update(current_round: current_round.next) unless skip_round_increase
+    fill_cards
+
+    new_black_card = Card.black_cards.sample
+    pc = PlayedCard.create(token: nil, game: self, card: new_black_card, round_number: current_round)
+  end
+
+  def round_ending
+    session_scores = played_cards.where(winner: true).group_by(:token).count
+    leader = session_scores.max_by { |token, wins| wins }
+
+    update(game_status: :game_complete) and return if leader[1] == MAX_ROUND_WINS
+
+    set_round_data
   end
 
   private
@@ -57,6 +84,7 @@ class Game < ApplicationRecord
     if self.sessions.size >= MAX_PLAYERS_PER_GAME
       self.game_status = :ready
       self.save
+      set_round_data(true)
     end
   end
 

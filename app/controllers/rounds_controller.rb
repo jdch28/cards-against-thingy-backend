@@ -18,9 +18,14 @@ class RoundsController < ApplicationController
       render_error(options) and return
     end
 
+    sumitted_card = @current_session.player_hand.delete(params[:card_id].to_i)
+    return if sumitted_card.blank?
+
+    @current_session.save
+
     card_params = {
       token: params[:token],
-      card_id: params[:card_id],
+      card_id: sumitted_card,
       round_number: @current_game.current_round,
     }
 
@@ -28,7 +33,6 @@ class RoundsController < ApplicationController
 
     @current_game.played_cards << played_card
 
-    # TO-DO: quitar carta de la mano
     render :status
   end
 
@@ -37,7 +41,9 @@ class RoundsController < ApplicationController
 
     winner_card = @current_game.played_cards.where(token: params[:winner_token]).take
     winner_card.winner = true
-      @current_game.update(round_status: :round_complete) if winner_card.save
+    @current_game.update(round_status: :round_complete) if winner_card.save
+
+    @current_game.validate_endgame
 
     render :status
   end
