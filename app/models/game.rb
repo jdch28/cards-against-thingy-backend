@@ -27,7 +27,6 @@ class Game < ApplicationRecord
 
     winner = self.played_cards.where(winner: true, round_number: current_round - 1).take
     winner_session = self.sessions.where(token: winner.token).take
-    win_count = self.played_cards.where(winner: true, token: winner.token).take
 
     {
       card: winner.card.text,
@@ -61,17 +60,17 @@ class Game < ApplicationRecord
     sorted_token[czar_index]
   end
 
-  def set_round_data(skip_round_increase=false)
+  def set_round_data(skip_round_increase = false)
     update(current_round: current_round.next) unless skip_round_increase
     fill_cards
 
     new_black_card = Card.black_cards.sample
-    pc = PlayedCard.create(token: nil, game: self, card: new_black_card, round_number: current_round)
+    PlayedCard.create(token: nil, game: self, card: new_black_card, round_number: current_round)
   end
 
   def end_round
     session_scores = played_cards.where(winner: true).group(:token).count
-    leader = session_scores.max_by { |token, wins| wins }
+    leader = session_scores.max_by { |_token, wins| wins }
 
     update(game_status: :game_complete) and return if leader[1] == MAX_ROUND_WINS
 
@@ -85,6 +84,22 @@ class Game < ApplicationRecord
 
   def current_round_winner(winner_token)
     played_cards.where(token: winner_token, round_number: current_round).take
+  end
+
+  def get_final_scores
+    sessions_mapping = sessions.index_by(&:token)
+    grouped_winner_cards = played_cards.where(winner: true).partition(&:token).sort_by(&:size).reverse
+    grouped_winner_cards.map do |group|
+      next if group.empty?
+
+      token = group.first.token
+
+      {
+        token: token,
+        name: sessions_mapping[token].name,
+        score: group.size,
+      }
+    end.compact
   end
 
   private
