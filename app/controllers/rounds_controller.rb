@@ -1,6 +1,9 @@
 class RoundsController < ApplicationController
   before_action :load_game
 
+  def current
+  end
+
   def status
   end
 
@@ -41,9 +44,7 @@ class RoundsController < ApplicationController
 
     winner_card = @current_game.played_cards.where(token: params[:winner_token]).take
     winner_card.winner = true
-    @current_game.update(round_status: :round_complete) if winner_card.save
-
-    @current_game.validate_endgame
+    @current_game.end_round if winner_card.save
 
     render :status
   end

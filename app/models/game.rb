@@ -13,7 +13,6 @@ class Game < ApplicationRecord
   enum round_status: {
     waiting_for_plebs: 0,
     waiting_for_czar: 1,
-    round_complete: 2,
   }
 
   before_create do |game|
@@ -23,11 +22,12 @@ class Game < ApplicationRecord
   has_many :sessions, after_add: :update_game_status
   has_many :played_cards, after_add: :update_round_status
 
-  def get_current_round_winner
-    winner = self.played_cards.where(winner: true, round_number: current_round).take
+  def get_last_round_winner
+    return {} if current_round == 0
+
+    winner = self.played_cards.where(winner: true, round_number: current_round - 1).take
     winner_session = self.sessions.where(token: winner.token).take
     win_count = self.played_cards.where(winner: true, token: winner.token).take
-
 
     {
       card: winner.card.text,
@@ -69,13 +69,14 @@ class Game < ApplicationRecord
     pc = PlayedCard.create(token: nil, game: self, card: new_black_card, round_number: current_round)
   end
 
-  def round_ending
+  def end_round
     session_scores = played_cards.where(winner: true).group_by(:token).count
     leader = session_scores.max_by { |token, wins| wins }
 
     update(game_status: :game_complete) and return if leader[1] == MAX_ROUND_WINS
 
     set_round_data
+    update(round_status: :waiting_for_plebs)
   end
 
   private
