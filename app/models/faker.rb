@@ -32,5 +32,7 @@ class Faker
       end
     end
     game.update(game_status: 'game_complete')
+
+    game
   end
 end
