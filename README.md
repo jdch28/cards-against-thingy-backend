@@ -23,7 +23,7 @@
 ## Games
 
 ### Game Status
-* **GET** http://localhost:3000/games/**<GAME PIN\>**/status.status
+* **GET** http://localhost:3000/games/**<GAME PIN\>**/status.json
 * **Returns:**
     * "type": "Game"
     * "pin": **<GAME PIN\>**
@@ -36,7 +36,11 @@
     * "token": **<SESSION TOKEN\>**
     * "name": **<SESSION NAME\>**
 * when round status == `ready` you will also get:
-  * "round": **<TBD\>**
+  * "round_data":
+    * "round_number": **<ROUND NUMBER\>**
+    * "black_card": **<ROUND BLACK CARD TEXT\>**
+    * "czar_token": **<ROUND CZAR TOKEN\>**
+    * "player_card": [ **<PLAYER HAND(TEXT)\>** ]
 * when round status == `complete` you will also get:
   * "scores": **<TBD\>**
 
