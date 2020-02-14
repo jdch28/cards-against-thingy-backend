@@ -31,6 +31,6 @@ class Faker
         game.played_cards << played_card
       end
     end
-    game
+    game.update(game_status: 'game_complete')
   end
 end
