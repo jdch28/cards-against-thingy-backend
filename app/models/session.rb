@@ -9,6 +9,6 @@ class Session < ApplicationRecord
   end
 
   def player_cards
-    Card.where(id: player_hand).pluck(:text)
+    Card.select(:id, :text).where(id: player_hand)
   end
 end
