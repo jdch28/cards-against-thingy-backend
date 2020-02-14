@@ -40,9 +40,9 @@ class RoundsController < ApplicationController
   end
 
   def submit_winner
-    return if params[:winner_token].blank?
+    return if params[:winner_id].blank?
 
-    winner_card = @current_game.current_round_winner(params[:winner_token])
+    winner_card = @current_game.current_round_winner(params[:winner_id])
     winner_card.winner = true
 
     @current_game.end_round if winner_card.save

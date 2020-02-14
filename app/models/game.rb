@@ -82,8 +82,10 @@ class Game < ApplicationRecord
     played_cards.where.not(token: nil).where(round_number: current_round).size
   end
 
-  def current_round_winner(winner_token)
-    played_cards.where(token: winner_token, round_number: current_round).take
+  def current_round_winner(winner_id)
+    winner_card = Card.where(id: winner_id).take
+
+    played_cards.where(card: winner_card, round_number: current_round).take
   end
 
   def get_final_scores
