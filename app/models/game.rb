@@ -88,18 +88,17 @@ class Game < ApplicationRecord
 
   def get_final_scores
     sessions_mapping = sessions.index_by(&:token)
-    grouped_winner_cards = played_cards.where(winner: true).partition(&:token).sort_by(&:size).reverse
-    grouped_winner_cards.map do |group|
-      next if group.empty?
+    score_mapping = played_cards.where(winner: true).group(:token).count.to_a.sort_by { |data| -data[1] }
+    score_mapping.map do |session_score|
+      next if session_score.empty?
 
-      token = group.first.token
-
+      token = session_score[0]
       {
         token: token,
         name: sessions_mapping[token].name,
-        score: group.size,
+        score: session_score[1],
       }
-    end.compact
+    end
   end
 
   private

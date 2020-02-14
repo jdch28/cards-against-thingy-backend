@@ -12,4 +12,25 @@ class Faker
 
     game
   end
+
+  def self.fake_results
+    game = set_fake_game
+    cards = Card.pluck(:id)
+    sessions = game.sessions.pluck(:token)
+
+    (1..4).each do |score|
+      score.times do |i|
+        card_params = {
+          token: sessions[score - 1],
+          card_id: cards.sample,
+          round_number: score + i,
+          winner: true,
+        }
+
+        played_card = PlayedCard.new(card_params)
+        game.played_cards << played_card
+      end
+    end
+    game
+  end
 end
